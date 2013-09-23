@@ -1,0 +1,53 @@
+
+******** nxpy *********
+Requirements:
+* Python 2.6 <= version < 3.0
+* lxml (tested with 2.2.6)
+
+To install:
+$ python setup.py install
+
+
+What is nxpy?
+
+nxpy is actually a device-xml-configuration to python mapper or proxy if you like. nxpy maps device xml configuration to python classes.
+
+!!! IMPORTANT !!! 
+For the time, it is compatible *ONLY* with Junipers' xml configuration. In the future it will be expanded to support a wider variety of vendors.
+
+What can I do with nxpy?
+
+nxpy allows for retrieving the device configuration in xml format (using either netconf or "show configuration | display xml" 
+via an excpect script), transform the configuration to python classes and manipulate the classes (view, edit, delete).
+After editing, the configuration can be applied back to the device via netconf or cli expect.
+Furthermore, it allows for building configuration via python classes, and apply it to the device(s) via netconf or cli expect.
+For the time, it supports limited configuration changes. As time goes by, I'll enhance it with many many more configuration parts.
+
+Give me some examples...
+1. Grab the configuration in xml format
+Let's say that you have grabbed your Juniper device configuration in xml format (This is STRICT!!!). You can use either
+"show configuration | display xml" (and copy paste the output to a file), or use an automated cli excpect script or invoke netconf.
+Since all is Python, I would go for the ncclient (http://schmizz.net/ncclient/), or my modified ncclient that Junipers like (branch dev-junos)
+(https://github.com/leopoul/ncclient/tree/dev_junos).
+
+2. Feed the configuration to nxpy
+
+import nxpy as np
+conf = np.Parser(<configuration_file_OR_configuration_text>)
+conf = conf.export()
+
+To check whether you have grabbed the configuration just give:
+
+conf.interfaces
+
+(...you should get the list of device interfaces)
+
+
+Changelog:
+
+v0.3:
+- Support for basic interface configuration (name, description, vlan)
+- Support for basic vlan configuration
+
+v0.4:
+- Added full support for bgp flowspec (routing-options flow) configuration
