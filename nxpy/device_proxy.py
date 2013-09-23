@@ -13,21 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re as re_
+import re
 import os
-from lxml import etree as etree_
+from lxml import etree
 
 
 def new_ele(tag, attrs={}, **extra):
-    etree_.Element(tag, attrs, **extra)
+    etree.Element(tag, attrs, **extra)
 
 
 def sub_ele(parent, tag, attrs={}, **extra):
-    etree_.SubElement(parent, tag, attrs, **extra)
+    etree.SubElement(parent, tag, attrs, **extra)
 
 # Globals
-Tag_pattern_ = re_.compile(r'({.*})?(.*)')
-STRING_CLEANUP_PAT = re_.compile(r"[\n\r\s]+")
+Tag_pattern_ = re.compile(r'({.*})?(.*)')
+STRING_CLEANUP_PAT = re.compile(r"[\n\r\s]+")
 
 
 class Device(object):
@@ -174,11 +174,11 @@ class Interface(object):
     def buildChildren(self, child_, nodeName_, from_subclass=False):
         if nodeName_ == 'name':
             name_ = child_.text
-            name_ = re_.sub(STRING_CLEANUP_PAT, " ", name_).strip()
+            name_ = re.sub(STRING_CLEANUP_PAT, " ", name_).strip()
             self.name = name_
         elif nodeName_ == 'description':
             description_ = child_.text
-            description_ = re_.sub(
+            description_ = re.sub(
                 STRING_CLEANUP_PAT, " ", description_).strip()
             self.description = description_
         elif nodeName_ == 'unit':
@@ -219,11 +219,11 @@ class Vlan:
     def buildChildren(self, child_, nodeName_, from_subclass=False):
         if nodeName_ == 'name':
             name_ = child_.text
-            name_ = re_.sub(STRING_CLEANUP_PAT, " ", name_).strip()
+            name_ = re.sub(STRING_CLEANUP_PAT, " ", name_).strip()
             self.name = name_
         elif nodeName_ == 'vlan-id':
             vlanid_ = child_.text
-            vlanid_ = re_.sub(STRING_CLEANUP_PAT, " ", vlanid_).strip()
+            vlanid_ = re.sub(STRING_CLEANUP_PAT, " ", vlanid_).strip()
             self.vlan_id = vlanid_
 
 
@@ -306,15 +306,15 @@ class Unit:
 
         if nodeName_ == 'name':
             name_ = child_.text
-            name_ = re_.sub(STRING_CLEANUP_PAT, " ", name_).strip()
+            name_ = re.sub(STRING_CLEANUP_PAT, " ", name_).strip()
             self.name = name_
         elif nodeName_ == 'vlan-id':
             vlanid_ = child_.text
-            vlanid_ = re_.sub(STRING_CLEANUP_PAT, " ", vlanid_).strip()
+            vlanid_ = re.sub(STRING_CLEANUP_PAT, " ", vlanid_).strip()
             self.vlan_id = vlanid_
         elif nodeName_ == 'description':
             description_ = child_.text
-            description_ = re_.sub(
+            description_ = re.sub(
                 STRING_CLEANUP_PAT, " ", description_).strip()
             self.description = description_
         elif nodeName_ == 'family':
@@ -329,13 +329,13 @@ class Unit:
                             grandChild_.tag).groups()[-1]
                         if grandchildName_ == 'port-mode':
                             pmode = grandChild_.text
-                            pmode = re_.sub(
+                            pmode = re.sub(
                                 STRING_CLEANUP_PAT, " ", pmode).strip()
                             family_dict['port-mode'] = pmode
                         elif grandchildName_ == 'vlan':
                             for vlan_member in grandChild_:
                                 vlanmem = vlan_member.text
-                                vlanmem = re_.sub(
+                                vlanmem = re.sub(
                                     STRING_CLEANUP_PAT, " ", vlanmem).strip()
                                 vlan_unit_list.append(vlanmem)
                             family_dict['vlan_members'] = vlan_unit_list
@@ -465,14 +465,14 @@ class Route(object):
     def buildChildren(self, child_, nodeName_, from_subclass=False):
         if nodeName_ == 'name':
             name_ = child_.text
-            name_ = re_.sub(STRING_CLEANUP_PAT, " ", name_).strip()
+            name_ = re.sub(STRING_CLEANUP_PAT, " ", name_).strip()
             self.name = name_
         elif nodeName_ == 'match':
             for grandChild_ in child_:
                 grandChildName_ = Tag_pattern_.match(
                     grandChild_.tag).groups()[-1]
                 grandChildText = grandChild_.text
-                grandChildText = re_.sub(
+                grandChildText = re.sub(
                     STRING_CLEANUP_PAT, " ", grandChildText).strip()
                 self.match[grandChildName_].append(grandChildText)
         elif nodeName_ == 'then':
@@ -501,8 +501,8 @@ class Parser(object):
 
     def parsexml_(self, *args, **kwargs):
         if 'parser' not in kwargs:
-            kwargs['parser'] = etree_.ETCompatXMLParser()
-        doc = etree_.parse(*args, **kwargs)
+            kwargs['parser'] = etree.ETCompatXMLParser()
+        doc = etree.parse(*args, **kwargs)
         return doc
 
     def parse(self):
