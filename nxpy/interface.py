@@ -1,6 +1,7 @@
 import re
 from lxml import etree
-from nxpy import Unit, tag_pattern, whitespace_pattern
+from nxpy.unit import Unit
+from nxpy.util import tag_pattern, whitespace_pattern
 
 
 class Interface(object):

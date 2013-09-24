@@ -1,6 +1,6 @@
 import re
 from lxml import etree
-from nxpy import tag_pattern, whitespace_pattern
+from nxpy.util import tag_pattern, whitespace_pattern
 
 
 class Unit:

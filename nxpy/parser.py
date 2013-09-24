@@ -1,6 +1,6 @@
 import os
-from nxpy import tag_pattern
-from nxpy import Device
+from nxpy.device import Device
+from nxpy.util import tag_pattern
 from lxml import etree
 
 

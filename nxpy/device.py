@@ -1,5 +1,8 @@
 from lxml import etree
-from nxpy import Interface, Vlan, Flow, tag_pattern
+from nxpy.interface import Interface
+from nxpy.vlan import Vlan
+from nxpy.flow import Flow
+from util import tag_pattern
 
 
 class Device(object):
