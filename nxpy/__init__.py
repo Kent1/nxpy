@@ -12,15 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from device_proxy import Device, DeviceDiff, Interface, Vlan, Unit, Flow, Route, Parser
+from device import Device, DeviceDiff
+from interface import Interface
+from vlan import Vlan
+from unit import Unit
+from flow import Flow
+from route import Route
+from parser import Parser
 
 __all__ = [
-"Device",
-"DeviceDiff",
-"Interface",
-"Vlan",
-"Unit",
-"Flow",
-"Route",
-"Parser"
+    "Device",
+    "DeviceDiff",
+    "Interface",
+    "Vlan",
+    "Unit",
+    "Flow",
+    "Route",
+    "Parser"
 ]
